@@ -1,0 +1,15 @@
+py manage.py shell
+from music.models import Singer, Song, Genre, User
+singer = Singer.objects.create(first_name="Ed", last_name="Sheeran", group_name="")
+singer.save()
+genre = Genre.objects.create(name="pop")
+genre.save()
+song = Song.objects.create(name="Perfect", singer=singer, genre =genre)
+song.save()
+song = Song.objects.create(name="Beautiful People", singer=singer, genre =genre)
+song.save()
+song = Song.objects.create(name="Photograph", singer=singer, genre =genre)
+song.save()
+
+
+
