@@ -4,10 +4,13 @@ from django.db import models
 class Singer(models.Model):
     fist_name = models.CharField \
         (max_length= 50, \
-         help_text= "Fist name of the author")
+         help_text= "Fist name of the singer")
     last_name = models.CharField \
         (max_length=50, \
-         help_text="Last name of the author")
+         help_text="Last name of the singer")
+    group_name = models.CharField \
+        (max_length = 50,\
+            help_text="The name of the group")
     # image = models.ImageField(upload_to="images",\
     #                           help_text="The image of the singer")
 
