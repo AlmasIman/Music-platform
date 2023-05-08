@@ -17,9 +17,8 @@ class Song(models.Model):
          help_text="The name of the song")
     singer = models.ForeignKey \
         (Singer, on_delete=models.CASCADE)
-    genre = models.CharField \
-        (max_length= 50, \
-         help_text= "The genre of the song")
+    genre = models.ForeignKey \
+        (Genre, on_delete=models.CASCADE)
 #      song_date = models.DateField \
 #         (verbose_name=\
 #         "Date the song was released")
