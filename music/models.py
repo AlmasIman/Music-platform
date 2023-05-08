@@ -20,6 +20,9 @@ class Song(models.Model):
     genre = models.CharField \
         (max_length= 50, \
          help_text= "The genre of the song")
+     song_date = models.DateField \
+        (verbose_name=\
+        "Date the song was realesed")
     # image = models.ImageField(upload_to="images", \
     #                           help_text="The image of the song")
 
