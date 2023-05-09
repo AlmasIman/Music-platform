@@ -75,7 +75,7 @@
                             <img src="{{song.image.url}}" alt="song">
                             <i class="bi playListPlay bi-play-circle-fill" id="7"></i>
                         </div>
-                        <h5>{{song.name}}
+                        <h5><a href="{% url 'detail' song.song_id %}">{{song.name}}</a></h5>
                             <br>
                             <div class="subtitle">{{ song.singer }}</div>
                         </h5>

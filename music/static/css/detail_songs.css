@@ -1,0 +1,122 @@
+body{
+    -webkit-filter:brightness(100%);
+    filter: brightness(90%);
+    background-image: url(https://img.geometria.ru/geopro-photos/resize_cache/37316858/0496572762e97d75993965c612bc7a9e/iblock/1e6/1e65dde3ed42489f7d8de2b70e19d617/IMG05039.jpeg);
+}
+#body-center {
+    background-color: rgb(236, 234, 234);
+    border-radius: 20px;
+    width: 600px;
+    height: 500px;
+    padding: 20px;
+    margin-top: 40px;
+    margin-left: 300px;
+    padding-right: 40px;
+    overflow: auto;
+    box-shadow: 0 4px 8px 0 rgba(239, 237, 237, 0.3), 0 6px 20px 0 rgba(248, 244, 244, 0.19);
+}
+.card {
+    padding: 30px 0px;
+    display: grid;
+    grid-template-columns: 25% 75%;
+}
+
+.cardData {
+    padding: 0px 20px;
+}
+
+.card img {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 4%;
+    margin: 0px auto;
+    height: 280px;
+    width: 150%;
+}
+
+h1{
+    margin-left: 70px;
+}
+
+.player{
+    width: 600px;
+    height: 80px;
+    border-radius: 10px;
+    margin-top: 50px;
+    margin-left: 15px;
+}
+.top{
+    margin-top: -50px;
+    margin-left: 280px;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+    #body-center {
+        height: 550px;
+        padding: 10px;
+        margin-left: 0px;
+        /* padding-right: 40px; */
+        overflow: auto;
+    }
+
+    .card {
+        padding: 30px 20px;
+        display: grid;
+        grid-template-columns: 100%;
+    }
+
+    #sameMovieCard {
+
+        margin: 5px 5px 5px 15px;
+        display: grid;
+        width: 90%;
+        grid-template-columns: 20% 80%;
+        padding: 10px 5px;
+        transition: 0.3s;
+    }
+
+    .headings {
+        margin: 5px 10px 10px 25px;
+        font-size: 1rem;
+        font-family: 'Roboto', sans-serif;
+        color: rgb(43, 43, 43);
+    }
+
+    .cardData {
+        padding: 0px 20px;
+        text-align: center;
+    }
+
+    .container_songpost {
+        border-radius: 4%;
+        position: relative;
+        margin: 5px auto;
+        width: 90%;
+        height: 50px;
+    }
+
+    .songpost_data {
+        display: grid;
+        grid-template-columns: 100%;
+    }
+
+    .play-btn_songpost {
+        width: 42px;
+        top: 8px;
+    }
+
+    .singer-name {
+        margin: 5px;
+    }
+
+    .song-name {
+        margin: 5px;
+        color: rgb(75, 74, 74);
+        font-size: 0.85rem;
+    }
+
+    .movie-name {
+        visibility: hidden;
+    }
+}

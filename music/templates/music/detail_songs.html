@@ -1,0 +1,43 @@
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/detail_songs.css' %}">
+<div id="border">
+<div id="body-center">
+    <div id="playlist">
+        <div class="card">
+            <img src="{{song.image.url}}" id="A_{{song.song_id}}">
+            <div class="cardData">
+                <h1 style="font-family: Lato,sans-serif; font-weight: 500; font-size: 2.25rem; line-height: 1.8; word-spacing: 1px; color: rgb(29, 29, 29);"
+                  >{{song.name}}</h1>
+                  <p style="margin: 0px 10px 10px 0px; font-size: 1rem; font-family: 'Roboto', sans-serif; color: rgb(172, 169, 169);  margin-left: 75px;"
+                  id="C_{{song.song_id}}">by : {{song.singer}}</p>
+              <p
+                  style="margin: 0px 10px 10px 0px; font-size: 1rem; font-family: 'Roboto', sans-serif; color: rgb(172, 169, 169); margin-left: 75px;">
+                  Song genre : {{song.genre}} <br><br> Year: {{song.year}} </p>
+              <p
+                  style="margin: 0px 10px 10px 0px; font-size: 1rem; font-family: 'Roboto', sans-serif; color: rgb(172, 169, 169); margin-left: 75px;">
+                  &#169; Universe</p>
+          </div>
+        </div>
+        <div class="player" style="background-color: #dddfe1;">
+            <div class="left"><img src="{{song.image.url}}" height="50" width="50" 
+                    style="border-radius: 10px 10px 10px 10px; margin-top:15px; margin-left: 5px;"></div>
+            <div class="right">
+                <div class="top">
+                    <a class="song" style="margin-left: 15px;color: rgb(26, 25, 25);">{{song.name}}</a>
+                </div>
+                <div class="bottom">
+                    <audio controls="" _autoplay="" name="media"
+                        style="margin-left:70px;;width:500px;height:30px;">
+                        <source src="{{song.song.url}}" type="audio/mpeg"></audio>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+<script>
+
+</script>

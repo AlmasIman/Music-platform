@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 
 from .models import Song, Singer
 
@@ -11,3 +11,10 @@ def main(request):
         'singer': singer
     }
     return render(request, "base.html", context)
+
+def detail(request,id):
+    song = Song.objects.filter(song_id=id).first()
+    context = {
+        'song': song,
+    }
+    return render(request, "music/detail_songs.html", context)

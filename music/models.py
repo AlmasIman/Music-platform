@@ -55,6 +55,7 @@ class Genre(models.Model):
         return self.name
     
 class Song(models.Model):
+    song_id = models.AutoField(primary_key=True)
     name = models.CharField \
         (max_length=200,\
          help_text="The name of the song")
