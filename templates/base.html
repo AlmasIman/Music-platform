@@ -1,14 +1,15 @@
-<!doctype html>
 {% load static %}
+<!doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Aviata</title>
     <link rel="stylesheet" href="{% static 'main.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <title>HomePage</title>
+
   </head>
   <body>
     <header>
@@ -21,60 +22,17 @@
                 <h4 ><span></span><i class="bi bi-music-note-beamed"></i> Recommended</h4> -->
             </div>
             <div class="menu_song">
+                {% for song in songs %}
                 <li class="songItem">
-                    <span>01</span>
-                    <img src="img/1.jpg" alt="Alan">
+                    <span>{{song.id}}</span>
+                    <img src="{{song.image.url}}" alt="img">
                     <h5>
-                        On My Way
-                        <div class="subtitle">Alan Walker</div>
+                        {{song.name}}
+                        <div class="subtitle">{{song.singer}}</div>
                     </h5>
                         <i class="bi playListPlay bi-play-circle-fill" id="1"></i>
                 </li>
-                <li class="songItem">
-                    <span>02</span>
-                    <img src="img/1.jpg" alt="Alan">
-                    <h5>
-                        On My Way
-                        <div class="subtitle">Alan Walker</div>
-                    </h5>
-                        <i class="bi playListPlay bi-play-circle-fill" id="2"></i>
-                </li>
-                <li class="songItem">
-                    <span>03</span>
-                    <img src="img/1.jpg" alt="Alan">
-                    <h5>
-                        On My Way
-                        <div class="subtitle">Alan Walker</div>
-                    </h5>
-                        <i class="bi playListPlay bi-play-circle-fill" id="3"></i>
-                </li>
-                <li class="songItem">
-                    <span>04</span>
-                    <img src="img/1.jpg" alt="Alan">
-                    <h5>
-                        On My Way
-                        <div class="subtitle">Alan Walker</div>
-                    </h5>
-                        <i class="bi playListPlay bi-play-circle-fill" id="4"></i>
-                </li>
-                <li class="songItem">
-                    <span>05</span>
-                    <img src="img/1.jpg" alt="Alan">
-                    <h5>
-                        On My Way
-                        <div class="subtitle">Alan Walker</div>
-                    </h5>
-                        <i class="bi playListPlay bi-play-circle-fill" id="5"></i>
-                </li>
-                <li class="songItem">
-                    <span>06</span>
-                    <img src="img/1.jpg" alt="Alan">
-                    <h5>
-                        On My Way
-                        <div class="subtitle">Alan Walker</div>
-                    </h5>
-                        <i class="bi playListPlay bi-play-circle-fill" id="6"></i>
-                </li>
+                {% endfor %}
             </div>
         </div>
     
@@ -86,24 +44,23 @@
                     <li>Search</li>
                     <li>Social media</li>
                     <li>Profile</li>
+                    <li>Radio</li>
+                    <li>My Library</li>
+                </ul>
+                <div class="search">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Search Music...">
+                </div>
+                <ul>
                     <li>Login</li>
                     <li>Register</li>
 
                 </ul>
-                <!-- <div class="search">
-                    <i class="bi bi-search"></i>
-                    <input type="text" placeholder="Search Music...">
-                </div> -->
-                <!-- <ul>
-                    <li>Login</li>
-                    <li>Register</li>
-
-                </ul> -->
                 <div class="user">
-                    <img src="img/KDS CODER.png" alt="User" title="KDS CODER (Jahid Khan)">
+                    <img src="" alt="User" title="KDS CODER (Jahid Khan)">
                 </div>
             </nav>
-            <!-- <div class="popular_song">
+            <div class="popular_song">
                 <div class="h4">
                     <h4>Popular Song</h4>
                     <div class="btn_s">
@@ -112,98 +69,21 @@
                     </div>
                 </div>
                 <div class="pop_song">
+                    {% for song in songs %}
                     <li class="songItem">
                         <div class="img_play">
-                            <img src="img/1.jpg" alt="alan">
+                            <img src="{{song.image.url}}" alt="song">
                             <i class="bi playListPlay bi-play-circle-fill" id="7"></i>
                         </div>
-                        <h5>On My Way
+                        <h5>{{song.name}}
                             <br>
-                            <div class="subtitle">Alan Walker</div>
+                            <div class="subtitle">{{ song.singer }}</div>
                         </h5>
                     </li>
-                    <li class="songItem">
-                        <div class="img_play">
-                            <img src="img/1.jpg" alt="alan">
-                            <i class="bi playListPlay bi-play-circle-fill" id="8"></i>
-                        </div>
-                        <h5>On My Way
-                            <br>
-                            <div class="subtitle">Alan Walker</div>
-                        </h5>
-                    </li>
-                    <li class="songItem">
-                        <div class="img_play">
-                            <img src="img/1.jpg" alt="alan">
-                            <i class="bi playListPlay bi-play-circle-fill" id="9"></i>
-                        </div>
-                        <h5>On My Way
-                            <br>
-                            <div class="subtitle">Alan Walker</div>
-                        </h5>
-                    </li>
-                    <li class="songItem">
-                        <div class="img_play">
-                            <img src="img/1.jpg" alt="alan">
-                            <i class="bi playListPlay bi-play-circle-fill" id="10"></i>
-                        </div>
-                        <h5>On My Way
-                            <br>
-                            <div class="subtitle">Alan Walker</div>
-                        </h5>
-                    </li>
-                    <li class="songItem">
-                        <div class="img_play">
-                            <img src="img/1.jpg" alt="alan">
-                            <i class="bi playListPlay bi-play-circle-fill" id="11"></i>
-                        </div>
-                        <h5>On My Way
-                            <br>
-                            <div class="subtitle">Alan Walker</div>
-                        </h5>
-                    </li>
-                    <li class="songItem">
-                        <div class="img_play">
-                            <img src="img/1.jpg" alt="alan">
-                            <i class="bi playListPlay bi-play-circle-fill" id="12"></i>
-                        </div>
-                        <h5>On My Way
-                            <br>
-                            <div class="subtitle">Alan Walker</div>
-                        </h5>
-                    </li>
-                    <li class="songItem">
-                        <div class="img_play">
-                            <img src="img/1.jpg" alt="alan">
-                            <i class="bi playListPlay bi-play-circle-fill" id="13"></i>
-                        </div>
-                        <h5>On My Way
-                            <br>
-                            <div class="subtitle">Alan Walker</div>
-                        </h5>
-                    </li>
-                    <li class="songItem">
-                        <div class="img_play">
-                            <img src="img/1.jpg" alt="alan">
-                            <i class="bi playListPlay bi-play-circle-fill" id="14"></i>
-                        </div>
-                        <h5>On My Way
-                            <br>
-                            <div class="subtitle">Alan Walker</div>
-                        </h5>
-                    </li>
-                    <li class="songItem">
-                        <div class="img_play">
-                            <img src="img/1.jpg" alt="alan">
-                            <i class="bi playListPlay bi-play-circle-fill" id="15"></i>
-                        </div>
-                        <h5>On My Way
-                            <br>
-                            <div class="subtitle">Alan Walker</div>
-                        </h5>
-                    </li>
+                    {% endfor %}
                 </div>
             </div>
+           
             <div class="popular_artists">
                 <div class="h4">
                     <h4>Popular Artists</h4>
@@ -213,13 +93,15 @@
                     </div>
                 </div>
                 <div class="item">
+                {% for artist in singer %}
                     <li>
-                        <img src="img/arjit.jpg" alt="Arjit Singh" title="Arjit Singh">
+                        <img src="{{artist.image.url}}" alt="Arjit Singh" title="Arjit Singh">
                     </li>
+                {% endfor %}
                 </div>
             </div>
         </div>
-     -->
+
     
         <div class="master_play">
             <div class="wave">
@@ -253,6 +135,6 @@
         </div>
     </header>
 
-    <script src="app.js"></script>     
+    <script src="app.js"></script>
   </body>
 </html>
