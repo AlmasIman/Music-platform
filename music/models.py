@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from music.helper import get_audio_length
 
 yearOfRelease = (
     ('2023','2023'),
@@ -34,16 +33,9 @@ yearOfRelease = (
 
 # Create your models here.
 class Singer(models.Model):
-    name = models.CharField \
-        (max_length= 100, \
-         help_text= "Name of the singer", default='Singer')
-    group_name = models.CharField \
-        (max_length = 50,\
-            help_text="The name of the group")
-    image = models.ImageField(upload_to="singer",\
-                               help_text="The image of the singer", blank=True)
-    
-    
+    name = models.CharField(max_length= 100, help_text= "Name of the singer", default='Singer')
+    group_name = models.CharField(max_length = 50, help_text="The name of the group")
+    image = models.ImageField(upload_to="singer", help_text="The image of the singer", blank=True)
     def __str__(self):
         return self.name
 
@@ -56,6 +48,7 @@ class Genre(models.Model):
         return self.name
     
 class Song(models.Model):
+    song_id = models.AutoField(primary_key=True)
     name = models.CharField \
         (max_length=200,\
          help_text="The name of the song")
@@ -75,26 +68,28 @@ class Song(models.Model):
     
     image = models.ImageField(upload_to="images", \
                                help_text="The image of the song", blank=True)
+    
     song = models.FileField(upload_to='songs', null=True)
-    time_length=models.DecimalField(max_digits=20, decimal_places=2,blank=True)
+    
+    #time_length=models.DecimalField(max_digits=20, decimal_places=2,blank=True)
 
     def __str__(self):
         return self.name
     
-    def save(self,*args, **kwargs):
+    """ def save(self,*args, **kwargs):
         if not self.time_length:
             # logic for getting length of audio
             audio_length=get_audio_length(self.song)
             self.time_length =f'{audio_length:.2f}'
 
-        return super().save(*args, **kwargs)
+        return super().save(*args, **kwargs) """
     
     class Meta: 
         verbose_name = 'Song'
         verbose_name_plural = 'Song'
     
-    class META:
-        ordering="id"
+    """ class META:
+        ordering="id" """
     
 
 class User(models.Model):
