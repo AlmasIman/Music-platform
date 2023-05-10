@@ -1,0 +1,186 @@
+{% load music_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>{% block Title %}Spotify Clone{% endblock Title %}</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="author" content="">
+
+		<link rel="stylesheet" href="../static/style.css">
+	</head>
+
+	<body class='relative pt-8'>
+		<nav class='p-4 bg-black bg-opacity-30 fixed top-0 left-0 w-full z-50'>
+			<a href="/">
+				<h2 class='text-white text-xl font-semibold'>
+					<span class='text-green-800 font-black'>Home</span>
+				</h2>
+			</a>
+		</nav>
+        <div class=" flex items-center justify-center py-12 relative" style="background: #edf2f7; ">
+            <div class="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
+        
+          <div class="relative max-w-xl w-full h-36 bg-white rounded-lg shadow-lg overflow-hidde mb-32">
+            <div class="absolute inset-0 rounded-lg overflow-hidden bg-red-200">
+              <img src="https://images.unsplash.com/photo-1499415479124-43c32433a620?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=889&q=80" alt="">
+              <div class="absolute inset-0 backdrop backdrop-blur-10 bg-gradient-to-b from-transparent to-black">
+                
+              </div>
+            </div>
+            <div class="absolute flex space-x-6 transform translate-x-6 translate-y-8">
+              <div class="w-36 h-36 rounded-lg shadow-lg overflow-hidden">
+                <img class="music_img w-full object-cover" src="https://images.unsplash.com/photo-1488036106564-87ecb155bb15?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=375&q=80" alt="">
+              </div>
+              <div class="text-white pt-12">
+                <h3 class="font-bold">Album</h3>
+                <div class="text-sm opacity-60 album">Super Interpret</div>
+                <div class="mt-8 text-gray-400">
+                  <div class="flex items-center space-x-2 text-xs">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+                    <span>Easy listening</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="max-w-xl bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="relative">
+              <img
+                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
+                class="object-cover">
+              <div class="absolute p-4 inset-0 flex flex-col justify-end bg-gradient-to-b from-transparent to-gray-900 backdrop backdrop-blur-5 text-white">
+                <h3 class="font-bold artist">Super Artist</h3>
+                <span class="opacity-70 song-title">Albumtitle</span>
+              </div>
+            </div>
+            <div>
+              <div class="relative h-1 bg-gray-200 progress_container">
+                <div class="absolute h-full w-2 progress bg-green-500 flex items-center justify-end">
+                  <div class="rounded-full w-3 h-3 bg-white shadow"></div>
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-between text-xs font-semibold text-gray-500 px-4 py-2">
+              <div class="currentDuration">
+                0:00
+              </div>
+              <div class="flex space-x-3 p-2">
+                <button class="focus:outline-none hover:bg-gray-200 prev">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="19 20 9 12 19 4 19 20"></polygon><line x1="5" y1="19" x2="5" y2="5"></line></svg>
+                </button>
+                <button class="rounded-full w-8 h-8 flex hover:bg-gray-200 items-center justify-center pl-0.5 ring-2 ring-gray-100 focus:outline-none playing">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </button>
+                <button class="focus:outline-none hover:bg-gray-200 next">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
+                </button>
+              </div>
+              <div class="Duration">
+                0:00
+              </div>
+            </div>
+            <ul class="text-xs sm:text-base divide-y border-t cursor-default audio-tracks">
+                {% for song in songs %}
+              <li class="flex items-center space-x-3 hover:bg-gray-100">
+                <button class="p-3 hover:bg-green-500 group focus:outline-none play_single">
+                  <svg class="w-4 h-4 group-hover:text-white play_svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </button>
+                <div class="flex-1">
+                  {{song.singer}} - {{song.name}}
+                </div>
+                <div class="text-xs text-gray-400">
+                    {{song.time_length | time_formater}}
+                </div>
+                <a href="../media/songs/{{song.song}}" class="focus:outline-none pr-4 group">
+                  <svg class="w-4 h-4 group-hover:text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5"/></svg>
+                </a>
+              </li>
+              {% endfor %}
+
+            </ul>
+          </div>
+        </div>
+        <audio class="audio-player" preload="metadata" autoplay="false" src="../media/songs/Jah_Khalib_-_Искал-Нашёл.mp3"></audio>
+
+
+<!--         <a href="/add" class="w-20 h-20 bg-green-600 absolute rounded-full right-48 bottom-12 flex justify-center items-center cursor-pointer block">
+            <svg xmlns='http://www.w3.org/2000/svg' class='ionicon h-10 w-10 text-gray-100 font-black' viewBox='0 0 512 512'><title>Add</title><path fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='32' d='M256 112v288M400 256H112'/></svg>
+        </a> -->
+        
+        </div>
+
+        {{music_list | json_script:'musics'}}
+
+        <script>
+            const player=document.querySelector('.audio-player')
+            const play=document.querySelector('.playing')
+            const prev=document.querySelector('.prev')
+            const next=document.querySelector('.next')
+            const currentTime=document.querySelector('.currentDuration')
+            const duration=document.querySelector('.Duration')
+            const progress=document.querySelector('.progress')
+            const progress_container=document.querySelector('.progress_container')
+            const audio_tracks=document.querySelector('.song')
+            const song_title=document.querySelector('.name')
+            const artist=document.querySelector('.singer')
+            //const album=document.querySelector('.album')
+            const music_img=document.querySelector('.image')
+
+            // initilize music indexing
+            let musicIndex=0
+
+            //get music document from backend 
+            const musics=JSON.parse(document.getElementById('musics').textContent)
+
+            // functions
+            const setSRC=()=>{
+                player.src=`../media/songs/${musics[musicIndex].song}`
+                song_title.textContent=musics[musicIndex].name
+                artist.textContent=musics[musicIndex].artist
+                music_img.setAttribute('src',`../media/images/${musics[musicIndex].cover_image}`)
+               /*if (musics[musicIndex].album !== null){
+                  album.textContent=musics[musicIndex].album
+                }else{
+                  album.textContent='Single'
+                }*/
+            }
+
+            //determine player should play or not 
+            const playOrPause=()=>{
+                if (player.paused){
+                    player.play()
+                }
+                else{
+                    player.pause()
+                }
+            }
+            
+            // format time for music
+            const formatTime=(secs)=>{
+                let min = Math.floor((secs % 3600) / 60)
+                let sec = Math.floor(secs % 60)
+                if (sec<10){
+                    sec=`0${sec}`
+                }
+            return `${min}:${sec}`
+            }
+
+            
+            // load music on refresh
+            setSRC()
+            player.pause()
+
+            //when play is clicked
+            play.addEventListener('click', () => {
+                playOrPause()
+            })
+
+        </script>
+	</body>
+</html>

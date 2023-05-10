@@ -11,3 +11,14 @@ def main(request):
         'singer': singer
     }
     return render(request, "base.html", context)
+
+def show_playlist(request):
+    songs = Song.objects.all()
+    singer = Singer.objects.all()
+    music_list = list(Song.objects.all().values())
+    context = {
+        'songs': songs,
+        'singer': singer,
+        'music_list':music_list
+    }
+    return render(request, "playlist.html", context)
