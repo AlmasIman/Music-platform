@@ -59,10 +59,6 @@ class Song(models.Model):
     genre = models.ForeignKey\
         (Genre, on_delete=models.CASCADE)
     
-    """song_date = models.DateTimeField \
-        (verbose_name= \
-              "Date the song was released",\
-          default='2023') """
           
     year = models.CharField(choices=yearOfRelease, max_length=20, default='2023')
     
@@ -71,25 +67,14 @@ class Song(models.Model):
     
     song = models.FileField(upload_to='songs', null=True)
     
-    #time_length=models.DecimalField(max_digits=20, decimal_places=2,blank=True)
 
     def __str__(self):
         return self.name
-    
-    """ def save(self,*args, **kwargs):
-        if not self.time_length:
-            # logic for getting length of audio
-            audio_length=get_audio_length(self.song)
-            self.time_length =f'{audio_length:.2f}'
-
-        return super().save(*args, **kwargs) """
     
     class Meta: 
         verbose_name = 'Song'
         verbose_name_plural = 'Song'
     
-    """ class META:
-        ordering="id" """
     
 
 class User(models.Model):

@@ -210,7 +210,7 @@ header .master_play h5 {
     line-height: 17px;
 }
 header .master_play h5 .subtitle{
-   font-size: 11px;
+   font-size: 15px;
    color: #4c5262;
 }
 header .master_play .icon{
@@ -350,9 +350,10 @@ header .master_play .vol input{
      position: absolute;
      width: 100%;
      height: 300px;
-     background: url('bg.png');
+     background: url('../media/banner3.png');
      z-index: -1;
  }
+
  header .song_side nav{
     width: 90%;
     height: 10%;
@@ -486,7 +487,7 @@ header .master_play .vol input{
      height: auto;
      /* border: 1px solid #fff; */
      margin: auto;
-     margin-top: 15px;
+     margin-top: 55px;
  }
  header .song_side .popular_song .h4{
     display: flex;
