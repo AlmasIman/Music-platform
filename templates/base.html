@@ -46,16 +46,19 @@
             <nav>
                 <ul>
                     <li>Home <span></span></li>
-                    <li>Search</li>
+                    <a href="{% url 'search'%}" style=" text-decoration: none;"><li>Search</li></a>
                     <li>Social media</li>
                     <li>Profile</li>
                     <li>Radio</li>
                     <li>My Library</li>
                 </ul>
-                <form>
-                    <input type="search" placeholder="Search Music..." name = "q" area-label="Search" class="search">
-                    <button class="btn" type="submit">Go</button>
-                </form>
+                <ul>
+                <li><form action="{% url 'search' %}" method="get" class="d-flex">
+                    <input class="search" type="text" name="query" placeholder="Search Music..." aria-label="Search" style="width:200px;height:35px;opacity:0.3;margin-top:15px;">
+                    <button class="btn1" type="submit" style="width:30px;height:30px;margin-top:20px;opacity:0.3;border-radius:10px;color:black">Go</button>
+                  </form>
+                </li>
+                </ul>
                 <ul>
                     <li>Login</li>
                     <li>Register</li>

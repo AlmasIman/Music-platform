@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.db.models import Q
 from .models import Song, Singer
 
 # Create your views here.
@@ -31,12 +31,13 @@ def detail(request,id):
     return render(request, "music/detail_songs.html", context)
 
 def search(request):
-    if 'q' in request.GET:
-        q = request.GET['q']
-        song = Song.objects.filter(name__icontains=q)
-    else: 
+    if 'query' in request.GET:
+        query = request.GET['query']
+        multiple_q = Q(Q(name__icontains=query) | Q(year__icontains=query) | Q(singer__name__icontains = query) | Q(singer__group_name__icontains = query) |Q(genre__name__icontains = query))
+        song = Song.objects.filter(multiple_q)
+    else:
         song = Song.objects.all()
     context = {
-        'song' : song
-    }    
-    return render(request,music/search.html)
+        'song': song
+    }
+    return render(request, 'music/search.html', context)

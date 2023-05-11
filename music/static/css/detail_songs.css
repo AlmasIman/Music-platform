@@ -4,7 +4,8 @@ body{
     background-image: url(https://img.geometria.ru/geopro-photos/resize_cache/37316858/0496572762e97d75993965c612bc7a9e/iblock/1e6/1e65dde3ed42489f7d8de2b70e19d617/IMG05039.jpeg);
 }
 #body-center {
-    background-color: rgb(236, 234, 234);
+    background-color: rgb(13, 13, 13);
+    opacity: 0.9;
     border-radius: 20px;
     width: 600px;
     height: 500px;
