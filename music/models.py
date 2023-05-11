@@ -33,16 +33,9 @@ yearOfRelease = (
 
 # Create your models here.
 class Singer(models.Model):
-    name = models.CharField \
-        (max_length= 100, \
-         help_text= "Name of the singer", default='Singer')
-    group_name = models.CharField \
-        (max_length = 50,\
-            help_text="The name of the group")
-    image = models.ImageField(upload_to="singer",\
-                               help_text="The image of the singer", blank=True)
-    
-    
+    name = models.CharField(max_length= 100, help_text= "Name of the singer", default='Singer')
+    group_name = models.CharField(max_length = 50, help_text="The name of the group")
+    image = models.ImageField(upload_to="singer", help_text="The image of the singer", blank=True)
     def __str__(self):
         return self.name
 
@@ -66,16 +59,14 @@ class Song(models.Model):
     genre = models.ForeignKey\
         (Genre, on_delete=models.CASCADE)
     
-    """song_date = models.DateTimeField \
-        (verbose_name= \
-              "Date the song was released",\
-          default='2023') """
           
     year = models.CharField(choices=yearOfRelease, max_length=20, default='2023')
     
     image = models.ImageField(upload_to="images", \
                                help_text="The image of the song", blank=True)
+    
     song = models.FileField(upload_to='songs', null=True)
+    
 
     def __str__(self):
         return self.name
@@ -83,7 +74,8 @@ class Song(models.Model):
     class Meta: 
         verbose_name = 'Song'
         verbose_name_plural = 'Song'
-        
+    
+    
 
 class User(models.Model):
     nickname = models.CharField \

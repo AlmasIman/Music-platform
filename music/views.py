@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render
 
 from .models import Song, Singer
 
@@ -12,9 +12,31 @@ def main(request):
     }
     return render(request, "base.html", context)
 
+""" def show_playlist(request):
+    songs = Song.objects.all()
+    singer = Singer.objects.all()
+    music_list = list(Song.objects.all().values())
+    context = {
+        'songs': songs,
+        'singer': singer,
+        'music_list':music_list
+    }
+    return render(request, "playlist.html", context) """
+
 def detail(request,id):
     song = Song.objects.filter(song_id=id).first()
     context = {
         'song': song,
     }
     return render(request, "music/detail_songs.html", context)
+
+def search(request):
+    if 'q' in request.GET:
+        q = request.GET['q']
+        song = Song.objects.filter(name__icontains=q)
+    else: 
+        song = Song.objects.all()
+    context = {
+        'song' : song
+    }    
+    return render(request,music/search.html)
