@@ -79,7 +79,48 @@
                     <a href="#"><button>PLAY</button></a>
                     <button>FOLLOW</button>
                 </div>
+            </div>  
+            <div class="popular_song">
+                <div class="h4">
+                    <h4>Popular Song</h4>
+                    <div class="btn_s">
+                        <i id="left_scroll" class="bi bi-arrow-left-short"></i>
+                        <i id="right_scroll" class="bi bi-arrow-right-short"></i>
+                    </div>
+                </div>
+                <div class="pop_song">
+                    {% for song in songs %}
+                    <li class="songItem">
+                        <div class="img_play">
+                            <img src="{{song.image.url}}" alt="song">
+                            <i class="bi playListPlay bi-play-circle-fill" id="7"></i>
+                        </div>
+                        <h5><a href="{% url 'detail' song.song_id %}">{{song.name}}</a></h5>
+                            <h6><div class="subtitle">{{ song.singer }} <a href="#" class="btn btn-outline-primary">Like</a></div></h6>
+                        </h5>
+                    </li>
+                    {% endfor %}
+                </div>
             </div>
+           
+            <div class="popular_artists">
+                <div class="h4">
+                    <h4>Popular Artists</h4>
+                    <div class="btn_s">
+                        <i id="left_scrolls" class="bi bi-arrow-left-short"></i>
+                        <i id="right_scrolls" class="bi bi-arrow-right-short"></i>
+                    </div>
+                </div>
+                <div class="item">
+                {% for artist in singer %}
+                    <li>
+                        <img src="{{artist.image.url}}" alt="Arjit Singh" title="Arjit Singh">
+                    </li>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+
     
         <div class="master_play">
             <div class="wave">

@@ -1,7 +1,23 @@
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
 from .models import Song, Singer
 import random
+
+""" 
+def favourite_add(request, id):
+    post = get_object_or_404(Song, id=id)
+    if post.favourites.filter(id=request.user.id).exists():
+        post.favourites.remove(request.user)
+    else:
+        post.favourites.add(request.user)
+        
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+def favourite_list(request):
+    new = Song.newmanager.filter(favourites=request.user)
+    return render(request, '../templates/favourite.html', {'new':new})
+ """
 
 def get_random_songs():
     songs = Song.objects.all()
@@ -18,7 +34,7 @@ def main(request):
         'singer': singer,
         'random_songs':random_songs
     }
-    return render(request, "base.html", context)
+    return render(request, "homePage.html", context)
 
 """ def show_playlist(request):
     songs = Song.objects.all()
@@ -38,8 +54,6 @@ def detail(request,id):
     }
     return render(request, "music/detail_songs.html", context)
 
-<<<<<<< HEAD
-=======
 def search(request):
     if 'query' in request.GET:
         query = request.GET['query']
@@ -51,4 +65,4 @@ def search(request):
         'song': song
     }
     return render(request, 'music/search.html', context)
->>>>>>> 29301af027bdf98067db41035300716a90204f02
+
