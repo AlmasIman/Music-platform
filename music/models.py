@@ -85,3 +85,17 @@ class User(models.Model):
         (max_length= 100, \
          help_text= "The email of the user")
     password = models.CharField(max_length= 30)
+
+
+    
+class News(models.Model):
+    title = models.CharField(max_length=100)
+    pub_date = models.DateField()
+    image = models.ImageField(upload_to="images", \
+                               help_text="The image of the song", blank=True)
+    news = models.CharField(max_length=200)
+    
+    def str(self):
+        return self.news
+    
+ 
