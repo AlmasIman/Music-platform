@@ -9,7 +9,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.main, name='main'),
-    path('detail/<int:id>/', views.detail, name='detail')
+    path('detail/<int:id>/', views.detail, name='detail'),
+    path('search/', views.search, name='search')
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
