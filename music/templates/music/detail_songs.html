@@ -1,4 +1,5 @@
 
+{% load social_share %}
 {% load static %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/detail_songs.css' %}">
@@ -35,6 +36,8 @@
             </div>
         </div>
     </div>
+    {% post_to_twitter "Listen this song {{songs.name}}" object_or_url "Post to Twitter" %}
+    
 </div>
 </div>
 {% endblock %}

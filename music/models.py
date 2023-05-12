@@ -85,6 +85,3 @@ class User(models.Model):
         (max_length= 100, \
          help_text= "The email of the user")
     password = models.CharField(max_length= 30)
-
-
-

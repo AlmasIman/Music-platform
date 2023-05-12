@@ -1,14 +1,22 @@
 from django.shortcuts import render
 
 from .models import Song, Singer
+import random
 
+def get_random_songs():
+    songs = Song.objects.all()
+    return random.sample(list(songs), 7)
+
+# in your view function
 # Create your views here.
 def main(request):
     songs = Song.objects.all()
     singer = Singer.objects.all()
+    random_songs = get_random_songs()
     context = {
         'songs': songs,
-        'singer': singer
+        'singer': singer,
+        'random_songs':random_songs
     }
     return render(request, "base.html", context)
 
@@ -29,3 +37,4 @@ def detail(request,id):
         'song': song,
     }
     return render(request, "music/detail_songs.html", context)
+

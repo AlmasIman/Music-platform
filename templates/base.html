@@ -2,7 +2,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -26,17 +26,17 @@
                 <h4 ><span></span><i class="bi bi-music-note-beamed"></i> Recommended</h4> -->
             </div>
             <div class="menu_song">
-                {% for song in songs %}
-                <li class="songItem">
-                    <span>{{song.song_id}}</span>
-                    <img src="{{song.image.url}}" alt="img">
-                    <h5>
-                        {{song.name}}
-                        <div class="subtitle">{{song.singer}}</div>
-                    </h5>
+                {% for song in random_songs %}
+                    <li class="songItem">
+                        <span>{{forloop.counter}}</span>
+                        <img src="{{song.image.url}}" alt="img">
+                        <h5>
+                            {{song.name}}
+                            <div class="subtitle">{{song.singer}}</div>
+                        </h5>
                         <i class="bi playListPlay bi-play-circle-fill" id="1"></i>
                         <audio src="{{song.song.url}}"></audio>
-                </li>
+                    </li>
                 {% endfor %}
             </div>
         </div>
@@ -62,7 +62,7 @@
 
                 </ul>
                 <div class="user">
-                    <img src="" alt="User" title="KDS CODER (Jahid Khan)">
+                    <img src="" alt="User" title="User">
                 </div>
             </nav>
             <div class="content">
