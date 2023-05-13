@@ -29,4 +29,11 @@ class Migration(migrations.Migration):
             name='song',
             field=models.FileField(blank=True, null=True, upload_to='songs'),
         ),
-    ]
+        
+        migrations.AlterField(
+        model_name='song',
+        name='image',
+        field=models.ImageField(upload_to='images/', default='default_image.jpg'),
+        ),
+]
+
