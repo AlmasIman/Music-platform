@@ -66,7 +66,6 @@ class Song(models.Model):
     
     song = models.FileField(upload_to='songs', null=True)
     
-    favourites = models.ManyToManyField(User, related_name='favourite', blank=True)
 
     def __str__(self):
         return self.name
@@ -74,14 +73,13 @@ class Song(models.Model):
     class Meta: 
         verbose_name = 'Song'
         verbose_name_plural = 'Song'
+        
+class News(models.Model):
+    title = models.CharField(max_length=100)
+    pub_date = models.DateField()
+    image = models.ImageField(upload_to="images", \
+                               help_text="The image of the song", blank=True)
+    news = models.CharField(max_length=200)
     
-    
-
-class User(models.Model):
-    nickname = models.CharField \
-        (max_length= 50,\
-         help_text= "The nickname of the user")
-    email = models.EmailField \
-        (max_length= 100, \
-         help_text= "The email of the user")
-    password = models.CharField(max_length= 30)
+    def str(self):
+        return self.news

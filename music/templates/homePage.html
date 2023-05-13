@@ -34,7 +34,8 @@
                             {{song.name}}
                             <div class="subtitle">{{song.singer}}</div>
                         </h5>
-                        <i class="bi playListPlay bi-play-circle-fill" id="1"></i>
+                        <i class="bi playListPlay bi-play-circle-fill" data-src="{{song.song.url}}"></i>
+                        <!-- <i class="bi playListPlay bi-play-circle-fill" id="1"></i>   -->
                         <audio src="{{song.song.url}}"></audio>
                     </li>
                 {% endfor %}
@@ -47,9 +48,8 @@
                 <ul>
                     <a href="/" style=" text-decoration: none;"><li>Home <span></span></li></a>
                     <a href="{% url 'search'%}" style=" text-decoration: none;"><li>Search</li></a>
-                    <li>All songs</li>
                     <li>Profile</li>
-                    <a href="#"><li>Favourite List</li></a>
+                    <li>Favourite List</li>
                     <li>My Library</li>
                 </ul>
                 <ul>
@@ -89,14 +89,14 @@
                     </div>
                 </div>
                 <div class="pop_song">
-                    {% for song in songs %}
+                    {% for song in random_songs %}
                     <li class="songItem">
                         <div class="img_play">
                             <img src="{{song.image.url}}" alt="song">
                             <i class="bi playListPlay bi-play-circle-fill" id="7"></i>
                         </div>
                         <h5><a href="{% url 'detail' song.song_id %}">{{song.name}}</a></h5>
-                            <h6><div class="subtitle">{{ song.singer }} <a href="#" class="btn btn-outline-primary">Like</a></div></h6>
+                            <h6><div class="subtitle">{{ song.singer }}</div></h6>
                         </h5>
                     </li>
                     {% endfor %}
@@ -114,7 +114,7 @@
                 <div class="item">
                 {% for artist in singer %}
                     <li>
-                        <img src="{{artist.image.url}}" alt="Arjit Singh" title="Arjit Singh">
+                        <a href="{% url 'show_artist' artist.id %}"><img src="{{artist.image.url}}" alt="Arjit Singh" title="Arjit Singh"></a>
                     </li>
                 {% endfor %}
                 </div>
@@ -167,6 +167,45 @@ const currentEnd = document.getElementById('currentEnd');
 const seekBar = document.getElementById('seek');
 const volBar = document.getElementById('vol');
 const audio = new Audio();
+const playButtons = document.querySelectorAll('.playListPlay');
+const audioPlayer = document.querySelector('audio');
+
+let currentAudio = null;
+
+songItems.forEach((songItem) => {
+  const audio = songItem.querySelector('audio');
+  const playButton = songItem.querySelector('.playListPlay');
+
+  playButton.addEventListener('click', () => {
+    if (currentAudio && currentAudio !== audio) {
+      currentAudio.pause();
+      const currentPlayButton = currentAudio.parentNode.querySelector('.playListPlay');
+      currentPlayButton.classList.remove('bi-pause-circle-fill');
+      currentPlayButton.classList.add('bi-play-circle-fill');
+    }
+
+    if (audio.paused) {
+      audio.play();
+      playButton.classList.remove('bi-play-circle-fill');
+      playButton.classList.add('bi-pause-circle-fill');
+    } else {
+      audio.pause();
+      playButton.classList.remove('bi-pause-circle-fill');
+      playButton.classList.add('bi-play-circle-fill');
+    }
+
+    const title = songItem.querySelector('h5').textContent;
+    const subtitle = songItem.querySelector('.subtitle').textContent;
+    const poster = songItem.querySelector('img').getAttribute('src');
+
+    document.getElementById('title').innerHTML = `${title}<br><div class="subtitle">${subtitle}</div>`;
+    document.getElementById('poster_master_play').setAttribute('src', poster);
+    document.getElementById('masterPlay').classList.remove('bi-play-fill');
+    document.getElementById('masterPlay').classList.add('bi-pause-fill');
+
+    currentAudio = audio;
+  });
+});
 
 // Keep track of the current song index
 let currentSongIndex = 0;
@@ -363,6 +402,27 @@ audio.addEventListener('timeupdate', () => {
     
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
+
+const popSong = document.querySelector('.pop_song');
+const leftScroll = document.querySelector('#left_scroll');
+const rightScroll = document.querySelector('#right_scroll');
+
+const scrollAmount = 300; // How much to scroll when arrow is clicked
+
+leftScroll.addEventListener('click', () => {
+  popSong.scrollBy({
+    left: -scrollAmount,
+    behavior: 'smooth',
+  });
+});
+
+rightScroll.addEventListener('click', () => {
+  popSong.scrollBy({
+    left: scrollAmount,
+    behavior: 'smooth',
+  });
+});
+
     </script>
   </body>
 </html>

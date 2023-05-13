@@ -13,7 +13,8 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     #path('fav/<int:id>/', views.favourite_add, name='favourite_add'),
     #path('favourites', views.favourite_list, name='favourite_list'),
-    
+    path('artist/<int:singer_id>/', views.show_artist, name='show_artist'),
+
     
 ]
 if settings.DEBUG:

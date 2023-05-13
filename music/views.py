@@ -66,3 +66,15 @@ def search(request):
     }
     return render(request, 'music/search.html', context)
 
+def show_artist(request, singer_id):
+    singer = get_object_or_404(Singer, pk=singer_id)
+
+    songs = Song.objects.filter(singer=singer)
+
+    context = {
+        'singer': singer,
+        'songs': songs,
+        
+    }
+
+    return render(request, 'artistPage.html', context)
