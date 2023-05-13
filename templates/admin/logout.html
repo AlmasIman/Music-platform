@@ -1,0 +1,9 @@
+{% extends "base_authentication.html" %}
+{% block title %}
+Log Out
+{% endblock %}
+{% block content %}
+    <h2>Log Out</h2>
+<p style="font-size: 1.3vw; color: #fff">You have been logged out.<br>
+<a href="{% url 'login' %}" style="text-decoration: none; color:#fff">Login Again</a></p>
+{% endblock %}
