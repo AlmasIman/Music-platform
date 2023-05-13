@@ -11,6 +11,8 @@ urlpatterns = [
     path('', views.main, name='main'),
     path('detail/<int:id>/', views.detail, name='detail'),
     path('search/', views.search, name='search'),
+    path('add/',views.add, name='add'),
+    path('change/<int:pk>/',views.change, name='change')
     #path('fav/<int:id>/', views.favourite_add, name='favourite_add'),
     #path('favourites', views.favourite_list, name='favourite_list'),
     

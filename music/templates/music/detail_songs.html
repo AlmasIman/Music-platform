@@ -3,6 +3,7 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/detail_songs.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div id="border">
 <div id="body-center">
     <div id="playlist">
@@ -19,6 +20,8 @@
               <p
                   style="margin: 0px 10px 10px 0px; font-size: 1rem; font-family: 'Roboto', sans-serif; color: rgb(172, 169, 169); margin-left: 75px;">
                   &#169; Universe</p>
+                  <i class="fa fa-twitter" style="font-size:25px;color:rgb(70, 153, 225);margin-left: 80px;"></i>
+                 <div class="twit" style="margin-left: 80px;font-size: 13px;">{% post_to_twitter "Listen this song {{songs.name}}" object_or_url "Post to Twitter" %}</div>
           </div>
         </div>
         <div class="player" style="background-color: #dddfe1;">
@@ -36,9 +39,7 @@
             </div>
         </div>
     </div>
-    {% post_to_twitter "Listen this song {{songs.name}}" object_or_url "Post to Twitter" %}
-    
-</div>
+    </div>
 </div>
 {% endblock %}
 <script>

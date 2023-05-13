@@ -76,6 +76,9 @@
                     Away afraid our aim is out of sight Wanna see us Alive
                 </p>
                 <div class="buttons">
+                    {% if user.is_superuser %}
+                            <a href="{% url 'add'%}"><button>Add</button></a>
+                             {% endif %}
                     <a href="#"><button>PLAY</button></a>
                     <button>FOLLOW</button>
                 </div>
@@ -97,6 +100,9 @@
                         </div>
                         <h5><a href="{% url 'detail' song.song_id %}">{{song.name}}</a></h5>
                             <h6><div class="subtitle">{{ song.singer }} <a href="#" class="btn btn-outline-primary">Like</a></div></h6>
+                            {% if user.is_superuser %}
+                            <a href="{% url 'change' song.pk %}" class="btn btn-outline-primary">Change</a>
+                             {% endif %}
                         </h5>
                     </li>
                     {% endfor %}

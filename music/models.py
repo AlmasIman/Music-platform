@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 yearOfRelease = (
     ('2023','2023'),
     ('2022','2022'),
@@ -49,16 +50,9 @@ class Genre(models.Model):
     
 class Song(models.Model):
     song_id = models.AutoField(primary_key=True)
-    name = models.CharField \
-        (max_length=200,\
-         help_text="The name of the song")
-        
-    singer = models.ForeignKey \
-        (Singer, on_delete=models.CASCADE)
-    genre = models.ForeignKey\
-        (Genre, on_delete=models.CASCADE)
-    
-          
+    name = models.CharField (max_length=200,help_text="The name of the song", null=True)
+    singer = models.ForeignKey (Singer, on_delete=models.CASCADE)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     year = models.CharField(choices=yearOfRelease, max_length=20, default='2023')
     
     image = models.ImageField(upload_to="images", \
@@ -94,6 +88,7 @@ class News(models.Model):
     image = models.ImageField(upload_to="images", \
                                help_text="The image of the song", blank=True)
     news = models.CharField(max_length=200)
+    
     
     def str(self):
         return self.news

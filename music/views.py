@@ -1,8 +1,10 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render,redirect
 from django.db.models import Q
 from .models import Song, Singer
+from .models import Genre
 import random
+from .forms import SongForm
 
 """ 
 def favourite_add(request, id):
@@ -66,3 +68,37 @@ def search(request):
     }
     return render(request, 'music/search.html', context)
 
+def change(request, pk):
+    error = ''
+    song = Song.objects.get(pk=pk)
+    if request.method == 'POST':
+        delete = None
+        if 'deler' in request.POST.keys():
+            song.delete()
+            return redirect('main')
+        else:
+            song.name = request.POST.get('name')
+            singer_name = request.POST.get('singer')
+            song.singer = Singer.objects.get(name=singer_name)
+            genre_name = request.POST.get('genre')
+            song.genre = Genre.objects.get(name=genre_name)
+            song.year = request.POST.get('year')
+            song.save()
+            return redirect('main')
+    data = {
+        'error': error,
+        'song': song,
+    }
+
+    return render(request, 'music/change.html', data)
+
+
+def add(request):
+    if request.method == 'POST':
+        form = SongForm(request.POST, request.FILES)
+        if form.is_valid():
+            song = form.save()
+            return redirect('main')
+    else:
+        form = SongForm()
+    return render(request, 'music/add.html', {'form': form})
