@@ -1,7 +1,6 @@
 from django.contrib import admin
-
 from .models import Singer, Genre, Song, User,News
-
+from .models import Singer, Genre, Song
 # Register your models here.
 
 class singerAdmin(admin.ModelAdmin): 
@@ -19,4 +18,5 @@ admin.site.register(Genre)
 admin.site.register(Song, song)
 admin.site.register(User)
 admin.site.register(News)
+
 
