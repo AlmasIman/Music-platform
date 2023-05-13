@@ -117,3 +117,48 @@ def show_artist(request, singer_id):
 
     return render(request, 'artistPage.html', context)
 
+
+def SignupPage(request):
+    form = SignUpForm()
+    if request.method=='POST':
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+        username = request.POST.get('username')
+        form = SignUpForm(request.POST)
+        if password1!=password2:
+            messages.info(request, "The passwords are different!")
+        elif User.objects.filter(username=username).exists():
+            messages.info(request, "This username is already taken")
+        elif str(password1).__contains__("[+]"):
+            messages.info(request, "The password should contain [+*.|()${}]")
+        elif len(str(password1))<8:
+            messages.info(request, "The password length shouldn't be less than 8")
+        else:
+            messages.success(request, "Successfully signed up")
+            form.save()
+            return redirect("login")
+    context = {
+        'form': form
+    }
+    return render(request, 'registration/signup.html', context)
+
+def LoginPage(request):
+    if request.method=='POST':
+        username=request.POST.get('username')
+        password = request.POST.get('password')
+        user=authenticate(request, username=username, password=password)
+        if user is not None:
+            # if request.user.is_superuser:
+            #     return redirect('http://127.0.0.1:8000/admin/')
+            # else:
+                login(request, user)
+                return redirect('main')
+
+        else:
+            messages.info(request, "Username or password is incorrect!")
+    return render(request, 'registration/login.html')
+
+def Logout(request):
+    logout(request)
+    return render(request, 'admin/logout.html')
+
