@@ -8,7 +8,7 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', views.main, name='main'),
+   path('main/', views.main, name='main'),
     path('detail/<int:id>/', views.detail, name='detail'),
     path('search/', views.search, name='search'),
     path('add/',views.add, name='add'),
@@ -16,6 +16,9 @@ urlpatterns = [
     #path('fav/<int:id>/', views.favourite_add, name='favourite_add'),
     #path('favourites', views.favourite_list, name='favourite_list'),
     path('artist/<int:singer_id>/', views.show_artist, name='show_artist'),
+    path('', views.LoginPage, name='login'),
+    path('logout/', views.Logout, name='logout'),
+    path('signup/', views.SignupPage, name='signup')
 
     
 ]
