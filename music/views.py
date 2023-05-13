@@ -6,6 +6,14 @@ from .models import Genre
 import random
 from .forms import SongForm
 
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
+from .forms import SignUpForm
+
+
+
 """ 
 def favourite_add(request, id):
     post = get_object_or_404(Song, id=id)
