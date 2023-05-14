@@ -1,33 +1,19 @@
 {% extends "base_authentication.html" %}
-{% load static %}
-{%  block title %}Login{% endblock %}
+
+{% block title %}Password reset{% endblock %}
 
 {% block content %}
-        <form action="" method="post">
-            {% csrf_token %}
-            <h2>Log in</h2>
-            <div class="inputbox">
-                <ion-icon name="person-circle-outline"></ion-icon>
-                <input type="text" required name="username">
-                <label for="">Username</label>
-            </div>
-            <div class="inputbox">
-                <ion-icon name="lock-closed-outline"></ion-icon>
-                <input type="password" required name="password">
-                <label for="">Password</label>
-            </div>
-            <input type="hidden" name="next" value="{{  next  }}">
-             <div class="register">
-                <input class="btn" style="background-color: white" type="submit" value="Login">
-            </div>
-            <br>
-            <div style="margin: -4% 6% -15px; font-size: 1.02vw; color: #fff; text-align: left">
-                <!-- Forget your password? Go <a href="#" style="color: #fff;">here</a><br> -->
-                You don't have an account? Sign up <a href="{% url 'signup' %}" style=" color: #fff">here</a>
-            </div>
+    <h2  style="color: white;">Password reset</h2><br>
+    <div style="width: 70%; margin-left: 30%">
+    <p  style="color: white; width: 70%">Enter your email address below, and we'll email instructions for setting a new one.</p>
+    <form method="post"  style="color: white">
+        {{  form.as_p }}
+        {% csrf_token %}
+         <a href="{% url 'login' %}"><ion-icon name="arrow-back-circle-outline" style="width: 25px; height: 24px;"></ion-icon></a>
+         <input type="submit" class="btn" style="background-color: white;"value="Send email">
+    </form>
 
-        </form>
-
+    </div>
 {% endblock %}
 {% block scripts %}
         {% for msg in messages %}
@@ -35,5 +21,3 @@
              alertify.success('{{ msg }}');
          {% endfor %}
 {% endblock %}
-
-
