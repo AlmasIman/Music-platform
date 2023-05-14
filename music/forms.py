@@ -18,4 +18,8 @@ class SongForm(forms.ModelForm):
         model = Song
         fields = ['name', 'singer', 'genre', 'year', 'image', 'song']
 
+# class PlaylistForm(forms.ModelForm):
+#     class Meta:
+#         model = Playlist
+#         fields = ['name']
 
