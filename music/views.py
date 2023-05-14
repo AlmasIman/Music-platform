@@ -223,3 +223,7 @@ def unlike_song(request, song_id):
 #             return redirect('home_page')
 #     else:
 #         return redirect('home_page')
+
+
+def profile(request):
+    return render(request, 'profile.html')
