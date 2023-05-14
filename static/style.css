@@ -4,8 +4,8 @@
     padding: 0%;
     margin: 0%;
     box-sizing: border-box;
+    
 }
-
 body {
     width: 100%;
     height: 100vh;
@@ -55,6 +55,11 @@ header .menu_side h1 {
 
 header .menu_side .playlist {
     margin:  40px 0px 0px 20px;
+}
+
+.add-button {
+    text-decoration: none;
+    color: #36e2ec;
 }
 
 header .menu_side .playlist h4 {
@@ -502,8 +507,48 @@ header .master_play .vol input{
  header .song_side .popular_song .h4 .bi:hover{
     color: #fff;
  }
+ .music-img {
+    flex: 0 0 auto;
+    width: 17%;
+}
+.recomended-playlist {
+    position: absolute;
+    margin-left: 20%;
+    margin-top: -15%;
+}
 
- header .song_side .popular_song .pop_song {
+.music-list {
+    flex: 0 0 auto;
+    width: 50%;
+}
+
+
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid ;
+  }
+  
+  th {
+    color: #ffffff;
+    font-weight: normal;
+  }
+  
+  
+
+
+header .song_side .popular_song .pop_song {
      width: 100%;
      height: 150px;
      margin-top: 15px;
@@ -524,6 +569,28 @@ header .master_play .vol input{
  header .song_side .popular_song .pop_song li:hover{
      background: rgb(105, 105, 170,.1);
  }
+
+.heart-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  font-size: 24px;
+  transition: color 0.3s ease;
+}
+
+.heart-btn i {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.heart-btn.clicked i {
+  color: red;
+}
+
+
+
  header .song_side .popular_song .pop_song li .img_play{
     position: relative;
     width: 100px;

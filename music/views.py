@@ -39,16 +39,14 @@ def main(request):
     }
     return render(request, "homePage.html", context)
 
-""" def show_playlist(request):
+def show_playlist(request):
     songs = Song.objects.all()
     singer = Singer.objects.all()
-    music_list = list(Song.objects.all().values())
     context = {
         'songs': songs,
-        'singer': singer,
-        'music_list':music_list
+        'singer': singer
     }
-    return render(request, "playlist.html", context) """
+    return render(request, "playlistPage.html", context)
 
 def detail(request,id):
     song = Song.objects.filter(song_id=id).first()

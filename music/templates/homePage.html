@@ -22,6 +22,9 @@
             <div class="playlist">
                 <h4 class="active"><span></span><i class="bi bi-music-note-beamed"></i> Favourites</h4>
                 <h4 class="active"><span></span><i class="bi bi-music-note-beamed"></i> Playlist</h4>
+                {% if user.is_superuser %}
+                      <h4 class="active"><span></span><i class="bi bi-music-note-beamed"></i> <a href="{% url 'add'%}" class="add-button"> Add</a></h4>
+                {% endif %}
                 <!-- <h4 ><span></span><i class="bi bi-music-note-beamed"></i> Last Listening</h4>
                 <h4 ><span></span><i class="bi bi-music-note-beamed"></i> Recommended</h4> -->
             </div>
@@ -60,13 +63,16 @@
                 </li>
                 </ul>
                 <ul>
+                  {% if user.is_authenticated %}
                     <li><a href="{% url 'logout' %}" style="text-decoration: none">Log out</a></li>
-
+                  {% endif %}
+                  {% if not user.is_authenticated %}
                     <li>Register</li>
+                  {% endif %}
 
                 </ul>
                 <div class="user">
-                    <img src="" alt="User" title="User">
+                  <img src="../media/png-transparent-user-computer-icons-user-miscellaneous-cdr-rectangle-thumbnail.png" alt="User" title="User">
                 </div>
             </nav>
             <div class="content">
@@ -77,10 +83,7 @@
                     Away afraid our aim is out of sight Wanna see us Alive
                 </p>
                 <div class="buttons">
-                    {% if user.is_superuser %}
-                            <a href="{% url 'add'%}"><button>Add</button></a>
-                             {% endif %}
-                    <a href="#"><button>PLAY</button></a>
+                    <a href="{% url 'show_playlist' %}"><button>PLAY</button></a>
                     <button>FOLLOW</button>
                 </div>
             </div>  
@@ -95,16 +98,17 @@
                 <div class="pop_song">
                     {% for song in random_songs %}
                     <li class="songItem">
+                      <a href="{% url 'detail' song.song_id %}">
                         <div class="img_play">
                             <img src="{{song.image.url}}" alt="song">
                             <i class="bi playListPlay bi-play-circle-fill" id="7"></i>
                         </div>
-                        <h5><a href="{% url 'detail' song.song_id %}">{{song.name}}</a></h5>
-                            <h6><div class="subtitle">{{ song.singer }} <a href="#" class="btn btn-outline-primary">Like</a></div></h6>
+                        <h5>{{song.name}}</h5>
+                      </a>
+                            <h6><div class="subtitle">{{ song.singer }} <a href=""><button class="heart-btn"><i class="fa fa-heart"></i></button></a></div></h6>
                             {% if user.is_superuser %}
                             <a href="{% url 'change' song.pk %}" class="btn btn-outline-primary">Change</a>
                              {% endif %}
-
                         </h5>
                     </li>
                     {% endfor %}
@@ -163,7 +167,7 @@
     </header>
     <!-- <script src="../templates/app.js"></script> -->
     <script>
-        
+
         // Get all song items
 const songItems = document.querySelectorAll('.songItem');
 

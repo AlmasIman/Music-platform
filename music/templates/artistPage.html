@@ -92,11 +92,13 @@
                 <div class="pop_song">
                     {% for song in songs %}
                     <li class="songItem">
+                      <a href="{% url 'detail' song.song_id %}">
                         <div class="img_play">
                             <img src="{{song.image.url}}" alt="song">
                             <i class="bi playListPlay bi-play-circle-fill" id="7"></i>
                         </div>
-                        <h5><a href="{% url 'detail' song.song_id %}">{{song.name}}</a></h5>
+                        <h5>{{song.name}}</a></h5>
+                      </a>
                         </h5>
                     </li>
                     {% empty %}
