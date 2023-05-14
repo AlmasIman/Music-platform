@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+import re
 
 """ 
 def favourite_add(request, id):
@@ -123,15 +124,23 @@ def SignupPage(request):
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
         username = request.POST.get('username')
+        email = request.POST.get('email')
         form = SignUpForm(request.POST)
         if password1!=password2:
             messages.info(request, "The passwords are different!")
-        elif User.objects.filter(username=username).exists():
+            redirect('signup')
+        if User.objects.filter(username=username).exists():
             messages.info(request, "This username is already taken")
-        elif str(password1).__contains__("[+]"):
-            messages.info(request, "The password should contain [+*.|()${}]")
-        elif len(str(password1))<8:
+            redirect('signup')
+        if User.objects.filter(email=email).exists():
+            messages.info(request, "This email is already used")
+            redirect('signup')
+        if len(str(password1))<8:
             messages.info(request, "The password length shouldn't be less than 8")
+            redirect('signup')
+        if not (re.findall("[+]", str(password1)) or re.findall("!", str(password1))):
+            messages.info(request, "The password should contain at least one of these [+*.|()${}!]")
+            redirect('signup')
         else:
             messages.success(request, "Successfully signed up")
             form.save()
@@ -147,12 +156,8 @@ def LoginPage(request):
         password = request.POST.get('password')
         user=authenticate(request, username=username, password=password)
         if user is not None:
-            # if request.user.is_superuser:
-            #     return redirect('http://127.0.0.1:8000/admin/')
-            # else:
-                login(request, user)
-                return redirect('main')
-
+            login(request, user)
+            return redirect('main')
         else:
             messages.info(request, "Username or password is incorrect!")
     return render(request, 'registration/login.html')
