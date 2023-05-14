@@ -3,16 +3,17 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelementplayer.min.css" rel="stylesheet"/>    
-    <title>Search</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelementplayer.min.css" rel="stylesheet"/>
+  
+    <title>HomePage</title>
 
   </head>
   <body>
@@ -22,19 +23,35 @@
             <div class="playlist">
                 <h4 class="active"><span></span><i class="bi bi-music-note-beamed"></i> Favourites</h4>
                 <h4 class="active"><span></span><i class="bi bi-music-note-beamed"></i> Playlist</h4>
-                <img src="https://thumbs.dreamstime.com/b/vector-sound-diagram-abstract-music-background-sound-diagram-blue-127512839.jpg" class="vert">
+                <img src="https://i.pinimg.com/originals/9c/80/9c/9c809c2d3ede3db2b8e8beef54059f7e.jpg" style="width:250px; height:380px;">
                 <!-- <h4 ><span></span><i class="bi bi-music-note-beamed"></i> Last Listening</h4>
                 <h4 ><span></span><i class="bi bi-music-note-beamed"></i> Recommended</h4> -->
             </div>
+            <div class="menu_song">
+                {% for song in random_songs %}
+                    <li class="songItem">
+                        <span>{{forloop.counter}}</span>
+                        <img src="{{song.image.url}}" alt="img">
+                        <h5>
+                            {{song.name}}
+                            <div class="subtitle">{{song.singer}}</div>
+                        </h5>
+                        <i class="bi playListPlay bi-play-circle-fill" data-src="{{song.song.url}}"></i>
+                        <!-- <i class="bi playListPlay bi-play-circle-fill" id="1"></i>   -->
+                        <audio src="{{song.song.url}}"></audio>
+                    </li>
+                {% endfor %}
+            </div>
         </div>
-       <div class="song_side">
+    
+    
+        <div class="song_side">
             <nav>
                 <ul>
-                    <a href="{% url 'main' %}"style=" text-decoration: none;"><li>Home</li></a>
-                    <a href="{% url 'search'%}" style=" text-decoration: none;"><li>Search <span></span></li></a>
-                    <li>All songs</li>
+                   <a href="{% url 'main' %}" style=" text-decoration: none;"><li>Home <span></span></li></a>
+                    <a href="{% url 'search'%}" style=" text-decoration: none;"><li>Search</li></a>
                     <li>Profile</li>
-                    <li>Radio</li>
+                    <li>Favourite List</li>
                     <li>My Library</li>
                 </ul>
                 <ul>
@@ -45,12 +62,13 @@
                 </li>
                 </ul>
                 <ul>
-                    <li>Login</li>
+                    <li><a href="{% url 'logout' %}" style="text-decoration: none">Log out</a></li>
+
                     <li>Register</li>
 
                 </ul>
                 <div class="user">
-                    <img src="" alt="User" title="KDS CODER (Jahid Khan)">
+                    <img src="" alt="User" title="User">
                 </div>
             </nav>
             <div class="content">
@@ -61,24 +79,68 @@
                     Away afraid our aim is out of sight Wanna see us Alive
                 </p>
                 <div class="buttons">
+                    {% if user.is_superuser %}
+                            <a href="{% url 'add'%}"><button>Add</button></a>
+                             {% endif %}
                     <a href="#"><button>PLAY</button></a>
                     <button>FOLLOW</button>
                 </div>
-            </div> 
-            {%for song in song%} 
-            <div class="player">
-                <div class="left" style="display: inline-block; margin-top: 100px;"><img src="{{song.image.url}}" height="50" width="50" 
-                        style="border-radius:10px; margin-top:-20px; margin-left:20px;"></div>
-                <div class="right" style="display: inline-block;">
-                        <a href="{% url 'detail' song.song_id %}" style="margin-left:200px;color:rgb(176, 172, 172);text-decoration:none;">{{song.name}}</a>
-                    <div class="bottom">
-                        <audio controls="" _autoplay="" name="media"
-                            style="margin-left:10px;margin-top:10px;width:500px;height:30px;opacity: 0.3;">
-                            <source src="{{song.song.url}}" type="audio/mpeg"></audio>
+            </div>  
+            <div class="popular_song">
+                <div class="h4">
+                    <h4>Popular Song</h4>
+                    <div class="btn_s">
+                        <i id="left_scroll" class="bi bi-arrow-left-short"></i>
+                        <i id="right_scroll" class="bi bi-arrow-right-short"></i>
                     </div>
                 </div>
+                <div class="pop_song">
+                    {%for song in song%} 
+                    <div class="player">
+                        <div class="left" style="display:inline-block; margin-left:60px;margin-top:20px;"><img src="{{song.image.url}}" height="50" width="50" 
+                                style="border-radius:10px; margin-top:-20px; margin-left:20px;"></div>
+                        <div class="right" style="display: inline-block;">
+                                <a href="{% url 'detail' song.song_id %}" style="margin-left:80px;color:rgb(176, 172, 172);text-decoration:none;">{{song.name}}</a>
+                            <div class="bottom">
+                                <audio controls="" _autoplay="" name="media"
+                                    style="margin-left:10px;margin-top:10px;width:250px;height:30px;opacity: 0.3;">
+                                    <source src="{{song.song.url}}" type="audio/mpeg"></audio>
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
             </div>
-            {%endfor%}
-       </div>
+        </div>
+    <div class="master_play">
+            <div class="wave">
+                <div class="wave1"></div>
+                <div class="wave1"></div>
+                <div class="wave1"></div>
+            </div>
+            <img src="../media/images/Lose_Yourself.jpg" alt="" id="poster_master_play">
+            <h5 id="title">Song<br>
+                <div class="subtitle">Arthist Name</div>
+            </h5>
+            <div class="icon">
+                <i class="bi bi-skip-start-fill" id="back"></i>
+                <i class="bi bi-play-fill" id="masterPlay"></i>
+                <i class="bi bi-skip-end-fill" id="next"></i>
+            </div>
+            <span id="currentStart">0:00</span>
+            <div class="bar">
+                <input type="range" id="seek" min="0" value="0" max="100">
+                <div class="bar2" id="bar2"></div>
+                <div class="dot"></div>
+            </div>
+            <span id="currentEnd">0:00</span>
+    
+            <div class="vol">
+                <i class="bi bi-volume-down-fill" id="vol_icon"></i>
+                <input type="range" id="vol" min="0" value="30" max="100">
+                <div class="vol_bar"></div>
+                <div class="dot" id="vol_dot"></div>
+            </div>
+        </div>
     </header>
 {% endblock %}
