@@ -18,9 +18,7 @@ urlpatterns = [
     path('artist/<int:singer_id>/', views.show_artist, name='show_artist'),
     path('', views.LoginPage, name='login'),
     path('logout/', views.Logout, name='logout'),
-    path('signup/', views.SignupPage, name='signup')
-
-    
+    path('signup/', views.SignupPage, name='signup')  
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

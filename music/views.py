@@ -1,18 +1,12 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render,redirect
 from django.db.models import Q
-from .models import Song, Singer
-from .models import Genre
+from .models import Song, Singer, Genre
+from .forms import SongForm, SignUpForm
 import random
-from .forms import SongForm
-
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm
-
-
 
 """ 
 def favourite_add(request, id):
@@ -33,8 +27,7 @@ def get_random_songs():
     songs = Song.objects.all()
     return random.sample(list(songs), 7)
 
-# in your view function
-# Create your views here.
+@login_required
 def main(request):
     songs = Song.objects.all()
     singer = Singer.objects.all()
@@ -122,9 +115,7 @@ def show_artist(request, singer_id):
         'songs': songs,
         
     }
-
     return render(request, 'artistPage.html', context)
-
 
 def SignupPage(request):
     form = SignUpForm()
@@ -144,7 +135,7 @@ def SignupPage(request):
         else:
             messages.success(request, "Successfully signed up")
             form.save()
-            return redirect("login")
+            return redirect('login')
     context = {
         'form': form
     }

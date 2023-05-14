@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelementplayer.min.css" rel="stylesheet"/>
-  
+
     <title>HomePage</title>
 
   </head>
@@ -40,15 +40,16 @@
                 {% endfor %}
             </div>
         </div>
-    
-    
+
+
         <div class="song_side">
             <nav>
                 <ul>
                     <a href="{% url 'main' %}" style=" text-decoration: none;"><li>Home <span></span></li></a>
                     <a href="{% url 'search'%}" style=" text-decoration: none;"><li>Search</li></a>
+                    <li>All songs</li>
                     <li>Profile</li>
-                    <li>Favourite List</li>
+                    <a href="#"><li>Favourite List</li></a>
                     <li>My Library</li>
                 </ul>
                 <ul>
@@ -59,7 +60,7 @@
                 </li>
                 </ul>
                 <ul>
-                    <li>Login</li>
+                    <li><a href="{% url 'logout' %}" class="btn btn-success" style="text-decoration: none">Log out</a></li>
                     <li>Register</li>
 
                 </ul>
@@ -70,7 +71,7 @@
             <div class="content">
                 <h1>Recommended Playlist</h1>
                 <p>
-                    You were the shadow to my light Did you feel us Another start You fade 
+                    You were the shadow to my light Did you feel us Another start You fade
                     <br>
                     Away afraid our aim is out of sight Wanna see us Alive
                 </p>
@@ -79,7 +80,7 @@
                     <button>FOLLOW</button>
                 </div>
             </div>
-    
+        </div>
         <div class="master_play">
             <div class="wave">
                 <div class="wave1"></div>
@@ -111,5 +112,216 @@
             </div>
         </div>
     </header>
+    <!-- <script src="../templates/app.js"></script> -->
+    <script>
+        
+        // Get all song items
+const songItems = document.querySelectorAll('.songItem');
+
+// Get master play container elements
+const poster = document.getElementById('poster_master_play');
+const title = document.getElementById('title');
+const currentStart = document.getElementById('currentStart');
+const currentEnd = document.getElementById('currentEnd');
+const seekBar = document.getElementById('seek');
+const volBar = document.getElementById('vol');
+const audio = new Audio();
+
+// Keep track of the current song index
+let currentSongIndex = 0;
+
+// Helper function to update the UI with song metadata
+function updateUI(song) {
+  poster.src = song.image.url;
+  title.innerHTML = `${song.name}<br><div class="subtitle">${song.singer}</div>`;
+}
+
+// Play the current song
+function playCurrentSong() {
+  // Get the current song from the songItems array
+  const songItem = songItems[currentSongIndex];
+  const song = {
+    id: songItem.querySelector('span').textContent,
+    name: songItem.querySelector('h5').textContent,
+    singer: songItem.querySelector('.subtitle').textContent,
+    image: {
+      url: songItem.querySelector('img').src,
+    },
+    audio: songItem.querySelector('audio').src,
+  };
+  
+  // Update the UI with song metadata
+  updateUI(song);
+  
+  // Set the audio source and play the song
+  audio.src = song.audio;
+  audio.play();
+}
+
+// Play the next song
+function playNextSong() {
+  // Increment the current song index
+  currentSongIndex++;
+  
+  // If the current song index is greater than or equal to the songItems length, wrap around to the first song
+  if (currentSongIndex >= songItems.length) {
+    currentSongIndex = 0;
+  }
+  
+  // Play the current song
+  playCurrentSong();
+}
+
+// Play the previous song
+function playPreviousSong() {
+  // Decrement the current song index
+  currentSongIndex--;
+  
+  // If the current song index is less than 0, wrap around to the last song
+  if (currentSongIndex < 0) {
+    currentSongIndex = songItems.length - 1;
+  }
+  
+  // Play the current song
+  playCurrentSong();
+}
+
+// Attach click event listener to the back button
+document.getElementById('back').addEventListener('click', () => {
+  // Pause the current song
+  audio.pause();
+  
+  // Play the previous song
+  playPreviousSong();
+});
+
+// Attach click event listener to the master play button
+document.getElementById('masterPlay').addEventListener('click', () => {
+  // If the audio is playing, pause it and change the button icon to play
+  if (!audio.paused) {
+    audio.pause();
+    document.getElementById('masterPlay').classList.remove('bi-pause-fill');
+    document.getElementById('masterPlay').classList.add('bi-play-fill');
+  }
+  // If the audio is paused, play the current song and change the button icon to pause
+  else {
+    playCurrentSong();
+    document.getElementById('masterPlay').classList.remove('bi-play-fill');
+    document.getElementById('masterPlay').classList.add('bi-pause-fill');
+  }
+});
+
+// Attach click event listener to the next button
+document.getElementById('next').addEventListener('click', () => {
+  // Pause the current song
+  audio.pause();
+  
+  // Play the next song
+  playNextSong();
+});
+// Update the seek bar and current time as the song plays
+audio.addEventListener('timeupdate', () => {
+    const duration = audio.duration;
+    const currentTime = audio.currentTime;
+    const progress = (currentTime / duration) * 100;
+    
+    currentStart.innerHTML = formatTime(currentTime);
+    currentEnd.innerHTML = formatTime(duration);
+    seekBar.value = progress;
+    
+    // Update the progress bar width
+    const progressBarWidth = (audio.currentTime / audio.duration) * 100;
+    const bar2 = document.getElementById('bar2');
+    bar2.style.width = `${progressBarWidth}%`;
+});
+    
+    // Update the volume bar as the user changes the volume
+    volBar.addEventListener('input', () => {
+    audio.volume = volBar.value / 100;
+    });
+    
+    // Handle master play/pause button
+    let isPlaying = false;
+    const masterPlay = document.getElementById('masterPlay');
+    masterPlay.addEventListener('click', () => {
+    if (isPlaying) {
+    audio.pause();
+    masterPlay.classList.remove('bi-pause-fill');
+    masterPlay.classList.add('bi-play-fill');
+    isPlaying = false;
+    } else {
+    audio.play();
+    masterPlay.classList.remove('bi-play-fill');
+    masterPlay.classList.add('bi-pause-fill');
+    isPlaying = true;
+    }
+    });
+    
+    // Handle back button
+    const backBtn = document.getElementById('back');
+    backBtn.addEventListener('click', () => {
+    let prevSongItem = null;
+    songItems.forEach((songItem, index) => {
+    if (song.id === audio.src) {
+    if (index === 0) {
+    prevSongItem = songItems[songItems.length - 1];
+    } else {
+    prevSongItem = songItems[index - 1];
+    }
+    }
+    });
+    if (prevSongItem) {
+    const prevSong = {
+    id: prevSongItem.querySelector('span').textContent,
+    name: prevSongItem.querySelector('h5').textContent,
+    singer: prevSongItem.querySelector('.subtitle').textContent,
+    image: {
+    url: prevSongItem.querySelector('img').src,
+    },
+    audio: prevSongItem.querySelector('audio').src,
+    };
+    updateUI(prevSong);
+    audio.src = prevSong.audio;
+    audio.play();
+    }
+    });
+    
+    // Handle next button
+    const nextBtn = document.getElementById('next');
+    nextBtn.addEventListener('click', () => {
+    let nextSongItem = null;
+    songItems.forEach((songItem, index) => {
+    if (song.id === audio.src) {
+    if (index === songItems.length - 1) {
+    nextSongItem = songItems[0];
+    } else {
+    nextSongItem = songItems[index + 1];
+    }
+    }
+    });
+    if (nextSongItem) {
+    const nextSong = {
+    id: nextSongItem.querySelector('span').textContent,
+    name: nextSongItem.querySelector('h5').textContent,
+    singer: nextSongItem.querySelector('.subtitle').textContent,
+    image: {
+    url: nextSongItem.querySelector('img').src,
+    },
+    audio: nextSongItem.querySelector('audio').src,
+    };
+    updateUI(nextSong);
+    audio.src = nextSong.audio;
+    audio.play();
+    }
+    });
+    
+    // Helper function to format time in MM:SS format
+    function formatTime(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
+    </script>
   </body>
 </html>

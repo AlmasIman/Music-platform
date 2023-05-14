@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
 yearOfRelease = (
     ('2023','2023'),
     ('2022','2022'),
@@ -74,16 +73,10 @@ class News(models.Model):
     image = models.ImageField(upload_to="images", \
                                help_text="The image of the song", blank=True)
     news = models.CharField(max_length=200)
-    
 
-class User(models.Model):
-    nickname = models.CharField \
-        (max_length= 50,\
-         help_text= "The nickname of the user")
-    email = models.EmailField \
-        (max_length= 100, \
-         help_text= "The email of the user")
-    password = models.CharField(max_length= 30)
+    def str(self):
+        return self.news
+    
 
 
     

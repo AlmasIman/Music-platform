@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Singer, Genre, Song, User,News
-from .models import Singer, Genre, Song
+
+from .models import Singer, Genre, Song, News
+
 # Register your models here.
 
 class singerAdmin(admin.ModelAdmin): 
@@ -8,15 +9,11 @@ class singerAdmin(admin.ModelAdmin):
 
 class song(admin.ModelAdmin):
     list_display = ('name', 'singer', 'genre', 'year')
-
-class new(admin.ModelAdmin):
-    list_display = ('title', 'pub_date', 'news')
     
 
 admin.site.register(Singer, singerAdmin)
 admin.site.register(Genre)
 admin.site.register(Song, song)
-admin.site.register(User)
 admin.site.register(News)
 
 
