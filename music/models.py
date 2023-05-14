@@ -58,6 +58,7 @@ class Song(models.Model):
                                help_text="The image of the song", blank=True)
     
     song = models.FileField(upload_to='songs', null=True)
+    favourites = models.ManyToManyField(User, related_name='favourite_songs')
     
 
     def __str__(self):
@@ -77,7 +78,19 @@ class News(models.Model):
     def str(self):
         return self.news
     
+# class Playlist(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     name = models.CharField(max_length=100)
 
+#     def __str__(self):
+#         return self.name
+
+# class PlaylistSong(models.Model):
+#     playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE)
+#     song = models.ForeignKey(Song, on_delete=models.CASCADE)
+
+#     def __str__(self):
+#         return f"{self.playlist.name} - {self.song.name}"
 
     
 

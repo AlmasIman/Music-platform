@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Favorites</h1>
+    {% if favorite_songs %}
+        <ul>
+            {% for song in favorite_songs %}
+            <li class="songItem">
+                <span>{{forloop.counter}}</span>
+                <img src="{{song.image.url}}" alt="img">
+                <h5>
+                    {{song.name}}
+                    <div class="subtitle">{{song.singer}}</div>
+                </h5>
+                <i class="bi playListPlay bi-play-circle-fill" data-src="{{song.song.url}}"></i>
+                <!-- <i class="bi playListPlay bi-play-circle-fill" id="1"></i>   -->
+                <audio src="{{song.song.url}}"></audio>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No favorite songs yet.</p>
+    {% endif %}
+{% endblock %}
