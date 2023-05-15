@@ -60,12 +60,13 @@
                 </li>
                 </ul>
                 <ul>
-                    <li><a href="{% url 'logout' %}" class="btn btn-success" style="text-decoration: none">Log out</a></li>
+                    <li><a href="{% url 'logout' %}" style="text-decoration: none; color: #fff">Log out</a></li>
                     <li>Register</li>
 
                 </ul>
                 <div class="user">
                     <img src="../media/png-transparent-user-computer-icons-user-miscellaneous-cdr-rectangle-thumbnail.png" alt="User" title="User">
+                      <img src="{{user.profile.img.url}}" class=="rounded" alt="User">
                 </div>
             </nav>
             <div class="content">

@@ -170,3 +170,64 @@ def Logout(request):
     logout(request)
     return render(request, 'admin/logout.html')
 
+@login_required
+def favourites(request):
+    favourite_songs = request.user.favourites.all()
+    context = {
+        'favourite_songs': favourite_songs
+    }
+    return render(request, 'favourites.html', context)
+
+@login_required
+def like_song(request, song_id):
+    if request.method == 'POST':
+        try:
+            song = Song.objects.get(id=song_id)
+            song.favourites.add(request.user)
+            return redirect('favourites')
+        except Song.DoesNotExist:
+            pass
+    return redirect('main')
+
+@login_required
+def unlike_song(request, song_id):
+    if request.method == 'POST':
+        try:
+            song = Song.objects.get(id=song_id)
+            song.favourites.remove(request.user)
+            return redirect('favourites')
+        except Song.DoesNotExist:
+            pass
+    return redirect('main')
+
+
+
+# def create_playlist(request):
+#     if request.method == 'POST':
+#         form = PlaylistForm(request.POST)
+#         if form.is_valid():
+#             playlist = form.save(commit=False)
+#             playlist.user = request.user
+#             playlist.save()
+#             return redirect('playlist')
+#     else:
+#         form = PlaylistForm()
+    
+#     return render(request, 'create_playlist.html', {'form': form})
+
+# @login_required
+# def add_song_to_playlist(request, playlist_id, song_id):
+#     if request.method == 'POST':
+#         try:
+#             playlist = Playlist.objects.get(id=playlist_id, user=request.user)
+#             song = Song.objects.get(id=song_id)
+#             playlist.songs.add(song)
+#             return redirect('home_page')
+#         except (Playlist.DoesNotExist, Song.DoesNotExist):
+#             return redirect('home_page')
+#     else:
+#         return redirect('home_page')
+
+
+def profile(request):
+    return render(request, 'profile.html')

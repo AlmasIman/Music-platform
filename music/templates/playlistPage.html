@@ -99,30 +99,30 @@
 
             <div class="container">
                 <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Track</th>
-                            <th>Artist</th>
-                            <th>Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for song in songs %}
-                        {% if song.genre.name == "Рэп" %}
-                        <tr>
-                            <td>{{forloop.counter0}}</td>
-                            <td>{{song.name}}</td>
-                            <td>{{song.singer}}</td>
-                            <td>3:46</td>
-                            <td><i class="bi playListPlay bi-play-circle-fill playButton" data-src="{{song.song.url}}"></i></td>
-                            <audio id="audioPlayer" src="{{song.song.url}}"></audio>
-                        </tr>
-                        {% endif %}
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Track</th>
+                      <th>Artist</th>
+                      <th>Play</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for song in songs %}
+                    {% if song.genre.name == "Рэп" %}
+                    <tr>
+                      <td>{{forloop.counter0}}</td>
+                      <td>{{song.name}}</td>
+                      <td>{{song.singer}}</td>
+                      <td><i class="bi playListPlay bi-play-circle-fill playButton" data-src="{{song.song.url}}"></i></td>
+                      <audio src="{{song.song.url}}"></audio>
+                    </tr>
+                    {% endif %}
                     {% endfor %}
-                    </tbody>
+                  </tbody>
                 </table>
-            </div>
+              </div>
+              
             
         </div>
         
@@ -159,10 +159,146 @@
             </div>
         </div>
     </header>
-    <!-- <script src="../templates/app.js"></script> -->
     <script>
+  // Get the elements
+const audio = document.getElementsByTagName('audio')[0];
+const playButton = document.getElementsByClassName('playButton');
+const masterPlay = document.getElementById('masterPlay');
+const back = document.getElementById('back');
+const next = document.getElementById('next');
+const seek = document.getElementById('seek');
+const bar2 = document.getElementById('bar2');
+const dot = document.getElementsByClassName('dot')[0];
+const currentStart = document.getElementById('currentStart');
+const currentEnd = document.getElementById('currentEnd');
+const vol = document.getElementById('vol');
+const vol_bar = document.getElementsByClassName('vol_bar')[0];
+const vol_dot = document.getElementById('vol_dot');
 
-        
+// Set the initial values
+let isPlaying = false;
+let duration = audio.duration;
+
+// Update the duration when metadata is loaded
+audio.addEventListener('loadedmetadata', function() {
+  duration = audio.duration;
+  currentEnd.textContent = formatTime(duration);
+});
+
+// Add event listeners to the play button, master play button, back and next buttons
+for (let i = 0; i < playButton.length; i++) {
+  playButton[i].addEventListener('click', function() {
+    if (!isPlaying) {
+      playTrack(this);
+    } else {
+      pauseTrack();
+    }
+  });
+}
+
+masterPlay.addEventListener('click', function() {
+  if (!isPlaying) {
+    playMaster();
+  } else {
+    pauseMaster();
+  }
+});
+
+back.addEventListener('click', function() {
+  audio.currentTime -= 10;
+});
+
+next.addEventListener('click', function() {
+  audio.currentTime += 10;
+});
+
+// Update the seek bar
+audio.addEventListener('timeupdate', function() {
+  let position = audio.currentTime / duration;
+  bar2.style.width = position * 100 + '%';
+  dot.style.left = position * 100 + '%';
+  currentStart.textContent = formatTime(audio.currentTime);
+});
+
+// Set the current time when the seek bar is clicked
+seek.addEventListener('click', function(e) {
+  let position = e.offsetX / this.offsetWidth;
+  audio.currentTime = position * duration;
+});
+
+// Update the volume bar
+vol.addEventListener('input', function() {
+  audio.volume = this.value / 100;
+  vol_bar.style.width = this.value + '%';
+  vol_dot.style.left = this.value + '%';
+});
+
+// Function to play a track
+function playTrack(button) {
+  audio.src = button.getAttribute('data-src');
+  audio.play();
+  isPlaying = true;
+  button.classList.remove('bi-play-circle-fill');
+  button.classList.add('bi-pause-circle-fill');
+}
+
+// Function to pause the current track
+function pauseTrack() {
+  audio.pause();
+  isPlaying = false;
+  for (let i = 0; i < playButton.length; i++) {
+    playButton[i].classList.remove('bi-pause-circle-fill');
+    playButton[i].classList.add('bi-play-circle-fill');
+  }
+}
+
+// Function to play the master track
+function playMaster() {
+  audio.play();
+  isPlaying = true;
+  masterPlay.classList.remove('bi-play-fill');
+  masterPlay.classList.add('bi-pause-fill');
+}
+
+// Function to pause the master track
+function pauseMaster() {
+  audio.pause();
+  isPlaying = false;
+  masterPlay.classList.remove('bi-pause-fill');
+  masterPlay.classList.add('bi-play-fill');
+}
+
+// Function to format time in minutes and seconds
+function formatTime(time) {
+  let minutes = Math.floor(time / 60);
+  let seconds = Math.floor(time % 60);
+  if (seconds < 10) {
+    seconds = '0' + seconds;
+  }
+  return minutes + ':' + seconds;
+}
+
+/*const poster = document.getElementById("poster_master_play");
+const title = document.getElementById("title");
+const artist = document.querySelector(".subtitle");
+
+const audioTags = document.getElementsByTagName("audio");
+
+for (let i = 0; i < audioTags.length; i++) {
+  audioTags[i].addEventListener("play", function() {
+    const currentSong = this.parentNode.parentNode;
+
+    const currentTitle = currentSong.querySelector("td:nth-child(2)").textContent;
+    const currentArtist = currentSong.querySelector("td:nth-child(3)").textContent;
+
+    const currentPosterURL = currentSong.querySelector("img").getAttribute("src");
+
+    poster.setAttribute("src", currentPosterURL);
+    title.textContent = currentTitle;
+    artist.textContent = currentArtist;
+  });
+}*/
+
     </script>
   </body>
 </html>
