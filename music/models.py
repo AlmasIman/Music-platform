@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 yearOfRelease = (
     ('2023','2023'),
@@ -58,7 +59,7 @@ class Song(models.Model):
                                help_text="The image of the song", blank=True)
     
     song = models.FileField(upload_to='songs', null=True)
-    favourites = models.ManyToManyField(User, related_name='favourite_songs')
+    
     
 
     def __str__(self):
@@ -67,16 +68,9 @@ class Song(models.Model):
     class Meta: 
         verbose_name = 'Song'
         verbose_name_plural = 'Song'
-        
-class News(models.Model):
-    title = models.CharField(max_length=100)
-    pub_date = models.DateField()
-    image = models.ImageField(upload_to="images", \
-                               help_text="The image of the song", blank=True)
-    news = models.CharField(max_length=200)
+    
 
-    def str(self):
-        return self.news
+
     
 # class Playlist(models.Model):
 #     user = models.ForeignKey(User, on_delete=models.CASCADE)
