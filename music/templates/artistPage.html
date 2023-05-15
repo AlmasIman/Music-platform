@@ -11,11 +11,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelementplayer.min.css" rel="stylesheet"/>
-  
+
     <title>{{singer.name}}</title>
 
   </head>
- 
+
   <body>
     <header>
         <div class="menu_side">
@@ -41,15 +41,18 @@
                 {% endfor %}
             </div>
         </div>
-    
-    
+
+
         <div class="song_side">
             <nav>
                 <ul>
-                   <a href="{% url 'main' %}" style=" text-decoration: none;"><li>Home <span></span></li></a>
+                    <a href="{% url 'main' %}" style=" text-decoration: none;"><li>Home <span></span></li></a>
                     <a href="{% url 'search'%}" style=" text-decoration: none;"><li>Search</li></a>
-                    <li>Profile</li>
-                    <li>Favourite List</li>
+                    <a href="{% url 'main'%}" style=" text-decoration: none;"><li>All Songs</li></a>
+
+                    <a href="{% url 'profile'%}" style=" text-decoration: none;"><li>Profile</li></a>
+
+                    <a href="#"><li>Favourite List</li></a>
                     <li>My Library</li>
                 </ul>
                 <ul>
@@ -59,27 +62,24 @@
                   </form>
                 </li>
                 </ul>
-                <ul>
-                      <li><a href="{% url 'logout' %}" style="text-decoration: none">Log out</a></li>
-
-
+                 <ul>
+                    <li><a href="{% url 'logout' %}" style="text-decoration: none">Log out</a></li>
+                    <img src="{{user.profile.img.url}}" class=="rounded" style="width: 15%; border-radius: 50%;" alt="User">
+{#                    <li>Register</li>#}
                 </ul>
-                <div class="user">
-                    <img src="" alt="User" title="User">
-                </div>
             </nav>
             <div class="content">
-                <h1>Recommended Playlist</h1>
+                <h1>{{singer.name}}</h1>
                 <p>
-                    You were the shadow to my light Did you feel us Another start You fade 
+                    Here songs of {{ singer.name }}
                     <br>
-                    Away afraid our aim is out of sight Wanna see us Alive
+                    Just click to the name of the song you want to listen
                 </p>
-                <div class="buttons">
-                    <a href="#"><button>PLAY</button></a>
-                    <button>FOLLOW</button>
-                </div>
-            </div>  
+{#                <div class="buttons">#}
+{#                    <a href="#"><button>PLAY</button></a>#}
+{#                    <button>FOLLOW</button>#}
+{#                </div>#}
+            </div>
             </ul>
             <div class="popular_song" >
                 <div class="h4">
@@ -129,7 +129,7 @@
                 <div class="dot"></div>
             </div>
             <span id="currentEnd">0:00</span>
-    
+
             <div class="vol">
                 <i class="bi bi-volume-down-fill" id="vol_icon"></i>
                 <input type="range" id="vol" min="0" value="30" max="100">
@@ -139,9 +139,9 @@
         </div>
     </header>
     <!-- <script src="../templates/app.js"></script> -->
-    
+
     <script>
-        
+
       // Get all song items
 const songItems = document.querySelectorAll('.songItem');
 
@@ -290,22 +290,22 @@ audio.addEventListener('timeupdate', () => {
   const duration = audio.duration;
   const currentTime = audio.currentTime;
   const progress = (currentTime / duration) * 100;
-  
+
   currentStart.innerHTML = formatTime(currentTime);
   currentEnd.innerHTML = formatTime(duration);
   seekBar.value = progress;
-  
+
   // Update the progress bar width
   const progressBarWidth = (audio.currentTime / audio.duration) * 100;
   const bar2 = document.getElementById('bar2');
   bar2.style.width = `${progressBarWidth}%`;
 });
-  
+
   // Update the volume bar as the user changes the volume
   volBar.addEventListener('input', () => {
   audio.volume = volBar.value / 100;
   });
-  
+
   // Handle master play/pause button
   let isPlaying = false;
   const masterPlay = document.getElementById('masterPlay');
@@ -322,7 +322,7 @@ audio.addEventListener('timeupdate', () => {
   isPlaying = true;
   }
   });
-  
+
   // Handle back button
   const backBtn = document.getElementById('back');
   backBtn.addEventListener('click', () => {
@@ -351,7 +351,7 @@ audio.addEventListener('timeupdate', () => {
   audio.play();
   }
   });
-  
+
   // Handle next button
   const nextBtn = document.getElementById('next');
   nextBtn.addEventListener('click', () => {
@@ -380,12 +380,12 @@ audio.addEventListener('timeupdate', () => {
   audio.play();
   }
   });
-  
+
   // Helper function to format time in MM:SS format
   function formatTime(time) {
   const minutes = Math.floor(time / 60);
   const seconds = Math.floor(time % 60);
-  
+
   return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
   </script>
